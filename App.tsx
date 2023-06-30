@@ -1,44 +1,38 @@
-import {StatusBar} from 'expo-status-bar';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import * as React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import VehicleListScreen from "./screens/VehicleListScreen";
-import {Header} from "react-native-elements";
+import SettingScreen from "./screens/SettingScreen";
+import {SafeAreaProvider} from "react-native-safe-area-context";
+import {StyleSheet} from "react-native";
 
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
     return (
-        <SafeAreaView style={styles.container}>
-            <Header
-                leftComponent={{icon: 'menu', color: '#3F2305', size: 40}}
-                centerComponent={{text: 'Список Авто', style: {color: '#3F2305', fontSize: 30}}}
-                rightComponent={{icon: 'home', color: '#3F2305', size: 40}}
-                containerStyle={{
-                    backgroundColor: '#DFD7BF',
-                    justifyContent: 'space-around',
-                }}
-            />
-            <VehicleListScreen/>
-            {/*<MapView style={styles.map}>*/}
-
-            {/*</MapView>*/}
-            <Text>Open up App.tsx to start working on your app!</Text>
-            <Text style={styles.text}>Open up App.tsx to start working on your app!!!!!!!!!!!11</Text>
-            <StatusBar style="auto"/>
-        </SafeAreaView>
+        <SafeAreaProvider>
+            <NavigationContainer>
+                <Tab.Navigator screenOptions={{
+                    tabBarAllowFontScaling: true,
+                    tabBarLabelStyle: {fontSize: 20},
+                    tabBarStyle: {backgroundColor: '#FFEADD'},
+                    tabBarIcon: () => {
+                        return null
+                    },
+                    tabBarActiveTintColor: 'tomato',
+                    tabBarInactiveTintColor: 'gray',
+                }}>
+                    <Tab.Screen name="Home" component={VehicleListScreen}/>
+                    <Tab.Screen name="Settings" component={SettingScreen}/>
+                </Tab.Navigator>
+            </NavigationContainer>
+        </SafeAreaProvider>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width: "100%",
-        height: "100%"
-    },
-    text: {
-        color: 'red',
-        fontSize: 20,
-        backgroundColor: 'yellow'
-    },
-    map: {
-        width: "60%",
-        height: "60%",
+    root: {
+        backgroundColor: '#FFEADD',
     }
-});
+})

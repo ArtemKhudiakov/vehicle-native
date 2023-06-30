@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "name": "Максим",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -34.603722,
+      "longitude": -58.381592
+    },
+    "contactNumber": "1234567890"
+  },
+  {
+    "id": 2,
+    "name": "Алексей",
+    "category": "Пассажирский",
+    "coordinates": {
+      "latitude": -34.597646,
+      "longitude": -58.394950
+    },
+    "contactNumber": "0987654321"
+  },
+  {
+    "id": 3,
+    "name": "Марина",
+    "category": "Спецтранспорт",
+    "coordinates": {
+      "latitude": -34.587646,
+      "longitude": -58.374950
+    },
+    "contactNumber": "3456663216"
+  },
+  {
+    "id": 4,
+    "name": "Василий",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -34.596646,
+      "longitude": -58.396950
+    },
+    "contactNumber": "8543554321"
+  },
+  {
+    "id": 5,
+    "name": "Хуан",
+    "category": "Пассажирский",
+    "coordinates": {
+      "latitude": -34.595646,
+      "longitude": -58.394950
+    },
+    "contactNumber": "7657654321"
+  },
+  {
+    "id": 6,
+    "name": "Педро",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -34.593646,
+      "longitude": -58.344950
+    },
+    "contactNumber": "0912654321"
+  },
+  {
+    "id": 7,
+    "name": "Лионель",
+    "category": "Спецтранспорт",
+    "coordinates": {
+      "latitude": -34.592646,
+      "longitude": -58.364950
+    },
+    "contactNumber": "2344654321"
+  },
+  {
+    "id": 8,
+    "name": "Андрей",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -34.591646,
+      "longitude": -58.374950
+    },
+    "contactNumber": "6197654321"
+  },
+  {
+    "id": 9,
+    "name": "Пабло",
+    "category": "Пассажирский",
+    "coordinates": {
+      "latitude": -34.557646,
+      "longitude": -58.374950
+    },
+    "contactNumber": "9087654321"
+  },
+  {
+    "id": 10,
+    "name": "Ник",
+    "category": "Спецтранспорт",
+    "coordinates": {
+      "latitude": -34.527646,
+      "longitude": -58.374950
+    },
+    "contactNumber": "9687654321"
+  }
+]
