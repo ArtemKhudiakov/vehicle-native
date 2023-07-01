@@ -1,14 +1,14 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import VehicleListScreen from '../screens/VehicleListScreen';
-import SettingScreen from '../screens/SettingScreen';
-import {LanguageProviderContext} from './LanguageProviderContext';
+import VehicleListScreen from './VehicleListScreen';
+import SettingScreen from './SettingScreen';
+import {LanguageProviderContext} from '../components/LanguageProviderContext';
 
 
 const Tab = createBottomTabNavigator();
 
 
-function Home() {
+function HomeScreen() {
     const {language} = React.useContext(LanguageProviderContext);
     return (
 
@@ -33,5 +33,5 @@ function Home() {
     )
 }
 
-export default Home;
+export default HomeScreen;
 

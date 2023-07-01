@@ -10,7 +10,7 @@ import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import VehicleScreen from "./screens/VehicleScreen";
 import {Car} from "./res/types";
-import Home from "./components/Home";
+import HomeScreen from "./screens/HomeScreen";
 
 
 const Tab = createBottomTabNavigator();
@@ -30,7 +30,7 @@ export default function App() {
                     <Stack.Navigator>
                         <Stack.Screen
                             name="Home"
-                            component={Home}
+                            component={HomeScreen}
                             options={{title: "ТС Трекер"}}
                         />
 

@@ -35,16 +35,28 @@ const VehicleScreen = ({route}: VehicleScreenProps) => {
             >
                 <Marker coordinate={vehicle.coordinates}/>
             </MapView>
-            <Text style={styles.title}>
-                {language === 'en' ? 'Category:' : 'Категория ТС:'} {vehicle.category}
-            </Text>
-            <Text style={styles.name}>
-                {language === 'en' ? 'Driver name:' : 'Имя водителя:'} {vehicle.name}
-            </Text>
-            <Text
-                style={styles.number}>
-                {language === 'en' ? 'Driver contact number:' : 'Контактный номер водителя:'} {vehicle.contactNumber}
-            </Text>
+
+            <View style={styles.info_container}>
+                <Text style={styles.subtitle}>
+                    {language === 'en' ? 'Category:' : 'Категория ТС:'}
+                </Text>
+                <Text style={styles.info}>{vehicle.category}</Text>
+            </View>
+
+            <View style={styles.info_container}>
+                <Text style={styles.subtitle}>
+                    {language === 'en' ? 'Driver name:' : 'Имя водителя:'}
+                </Text>
+                <Text style={styles.info}>{vehicle.name}</Text>
+            </View>
+
+            <View style={styles.info_container}>
+                <Text style={styles.number}>
+                    {language === 'en' ? 'Driver contact number:' : 'Контактный номер водителя:'}
+                </Text>
+                <Text style={styles.info}>{vehicle.contactNumber}</Text>
+            </View>
+
             <View style={styles.contact}>
                 <Button color={'blue'} title={language === 'en' ? 'Call' : 'Позвонить'} onPress={handleCallDriver}/>
                 <Button color={'green'} title={language === 'en' ? 'Write' : 'Написать'} onPress={handleMessageDriver}/>
@@ -65,19 +77,24 @@ const styles = StyleSheet.create({
         height: 200,
         marginBottom: 20,
     },
-    title: {
+    info_container: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    subtitle: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
         marginLeft: 10,
     },
-    name: {
-        fontSize: 16,
+    info: {
+        fontSize: 18,
         marginBottom: 10,
         marginLeft: 10,
     },
     number: {
         fontSize: 16,
+        fontWeight: 'bold',
         marginBottom: 10,
         marginLeft: 10,
     },

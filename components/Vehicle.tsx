@@ -4,17 +4,14 @@ import {Car} from "../res/types"
 export interface Props {
     vehicle: Car;
     key: number;
-};
+}
 
 export default function Vehicle({vehicle: {id, name, category}}: Props): JSX.Element {
     return (
         <View style={styles.vehicle} key={id}>
-
             <Text style={styles.number}>{`ТС #${id}`} </Text>
-
             <Text style={styles.name}>{` ${name}`} </Text>
             <Text style={styles.category}>{` ${category}`}</Text>
-
         </View>
     );
 }
@@ -25,8 +22,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#FFFFFF',
         padding: 16,
-        marginTop: 8,
-        borderRadius: 8,
+        marginTop: 6,
+        borderRadius: 20,
         elevation: 4
     },
     number: {
@@ -42,6 +39,4 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#888888'
     }
-
-
 })

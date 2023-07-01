@@ -17,13 +17,11 @@ export default function VehicleListScreen(): JSX.Element {
     const [showMap, setShowMap] = useState(false);
     const [filteredVehicles, setFilteredVehicles] = useState(vehicles as Car[]);
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-    const [selectedVehicle, setSelectedVehicle] = useState<Car | null>(null);
     const {language} = useContext(LanguageProviderContext);
     const navigation = useNavigation<VehicleListScreenProp>();
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
     };
-
 
     const handleResetCLick = () => {
         setFilteredVehicles(vehicles as Car[])
@@ -75,7 +73,6 @@ export default function VehicleListScreen(): JSX.Element {
                 />
                 <Text style={styles.text}>{text}</Text>
             </TouchableOpacity>
-
         );
     };
 
@@ -106,7 +103,6 @@ export default function VehicleListScreen(): JSX.Element {
                 ))}
             </View>
 
-
             <View style={styles.categories_btn}>
                 <Button title={language === 'en' ? 'Apply' : 'Применить'} onPress={handleFilterButtonClick}/>
                 <Button title={language === 'en' ? 'Reset' : 'Сбросить'} onPress={handleResetCLick}/>
@@ -126,10 +122,10 @@ export default function VehicleListScreen(): JSX.Element {
                         />
                     ))}
                 </MapView>
-
             ) : (
                 <View>
-                    {!selectedVehicle && (<FlatList
+                    {<FlatList
+                        style={styles.listContainer}
                         data={filteredVehicles}
                         renderItem={({item: vehicle}) =>
                             <TouchableOpacity
@@ -140,12 +136,8 @@ export default function VehicleListScreen(): JSX.Element {
                         }
                         keyExtractor={(vehicle) => vehicle.id.toString()}
 
-                    />)
+                    />
                     }
-                    {/*{selectedVehicle && (*/}
-                    {/*    <VehicleScreen vehicle={selectedVehicle}/>*/}
-                    {/*    // setSelectedVehicle(null)*/}
-                    {/*)}*/}
                 </View>
             )
             }
@@ -163,14 +155,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginTop: 10
-
     },
     listContainer: {
-        // flexStyle: 1,
-        backgroundColor: '#FFEADD',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
+        marginBottom: 252,
     },
     default_radio: {
         width: 0,
@@ -197,7 +184,6 @@ const styles = StyleSheet.create({
         marginRight: 8,
     },
     text: {},
-
     map: {
         position: 'absolute',
         backgroundColor: '#FF6666',
@@ -215,5 +201,4 @@ const styles = StyleSheet.create({
     text_map: {
         fontSize: 20,
     }
-
 });
