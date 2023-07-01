@@ -3,6 +3,7 @@
 ## Installation
 
 Download The zip file and
+**npm install** &
 **npx expo start**
 
 ## Introduction
