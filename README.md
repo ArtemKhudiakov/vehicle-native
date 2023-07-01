@@ -3,7 +3,7 @@
 ## Installation
 
 Download The zip file and
-**npm install**
+**npm expo start**
 
 ## Introduction
 
