@@ -6,7 +6,7 @@ export interface Props {
     key: number;
 };
 
-export default function Vehicle({vehicle: {id, name, category}, key: number}: Props): JSX.Element {
+export default function Vehicle({vehicle: {id, name, category}}: Props): JSX.Element {
     return (
         <View style={styles.vehicle} key={id}>
 

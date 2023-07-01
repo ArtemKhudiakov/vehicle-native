@@ -14,8 +14,8 @@
     "name": "Алексей",
     "category": "Пассажирский",
     "coordinates": {
-      "latitude": -34.597646,
-      "longitude": -58.394950
+      "latitude": -32.597646,
+      "longitude": -65.394950
     },
     "contactNumber": "0987654321"
   },
@@ -24,8 +24,8 @@
     "name": "Марина",
     "category": "Спецтранспорт",
     "coordinates": {
-      "latitude": -34.587646,
-      "longitude": -58.374950
+      "latitude": -31.587646,
+      "longitude": -60.374950
     },
     "contactNumber": "3456663216"
   },
@@ -34,8 +34,8 @@
     "name": "Василий",
     "category": "Грузовой",
     "coordinates": {
-      "latitude": -34.596646,
-      "longitude": -58.396950
+      "latitude": -29.596646,
+      "longitude": -66.396950
     },
     "contactNumber": "8543554321"
   },
@@ -44,8 +44,8 @@
     "name": "Хуан",
     "category": "Пассажирский",
     "coordinates": {
-      "latitude": -34.595646,
-      "longitude": -58.394950
+      "latitude": -28.595646,
+      "longitude": -68.394950
     },
     "contactNumber": "7657654321"
   },
@@ -54,8 +54,8 @@
     "name": "Педро",
     "category": "Грузовой",
     "coordinates": {
-      "latitude": -34.593646,
-      "longitude": -58.344950
+      "latitude": -36.593646,
+      "longitude": -62.344950
     },
     "contactNumber": "0912654321"
   },
@@ -64,7 +64,7 @@
     "name": "Лионель",
     "category": "Спецтранспорт",
     "coordinates": {
-      "latitude": -34.592646,
+      "latitude": -35.592646,
       "longitude": -58.364950
     },
     "contactNumber": "2344654321"
@@ -74,8 +74,8 @@
     "name": "Андрей",
     "category": "Грузовой",
     "coordinates": {
-      "latitude": -34.591646,
-      "longitude": -58.374950
+      "latitude": -37.591646,
+      "longitude": -63.374950
     },
     "contactNumber": "6197654321"
   },
@@ -91,11 +91,111 @@
   },
   {
     "id": 10,
-    "name": "Ник",
+    "name": "Фил",
     "category": "Спецтранспорт",
     "coordinates": {
       "latitude": -34.527646,
-      "longitude": -58.374950
+      "longitude": -67.374950
+    },
+    "contactNumber": "9687654321"
+  },
+  {
+    "id": 11,
+    "name": "Вася",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -34.603722,
+      "longitude": -68.381592
+    },
+    "contactNumber": "1234567890"
+  },
+  {
+    "id": 12,
+    "name": "Павел",
+    "category": "Пассажирский",
+    "coordinates": {
+      "latitude": -34.057646,
+      "longitude": -68.394950
+    },
+    "contactNumber": "0987654321"
+  },
+  {
+    "id": 13,
+    "name": "Варя",
+    "category": "Спецтранспорт",
+    "coordinates": {
+      "latitude": -34.047646,
+      "longitude": -65.374950
+    },
+    "contactNumber": "3456663216"
+  },
+  {
+    "id": 14,
+    "name": "Егор",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -34.406646,
+      "longitude": -63.396950
+    },
+    "contactNumber": "8543554321"
+  },
+  {
+    "id": 15,
+    "name": "Миша",
+    "category": "Пассажирский",
+    "coordinates": {
+      "latitude": -30.505646,
+      "longitude": -60.394950
+    },
+    "contactNumber": "7657654321"
+  },
+  {
+    "id": 16,
+    "name": "Гонсало",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -30.083646,
+      "longitude": -61.344950
+    },
+    "contactNumber": "0912654321"
+  },
+  {
+    "id": 17,
+    "name": "Эмилио",
+    "category": "Спецтранспорт",
+    "coordinates": {
+      "latitude": -31.592646,
+      "longitude": -66.364950
+    },
+    "contactNumber": "2344654321"
+  },
+  {
+    "id": 18,
+    "name": "Женя",
+    "category": "Грузовой",
+    "coordinates": {
+      "latitude": -32.591646,
+      "longitude": -65.374950
+    },
+    "contactNumber": "6197654321"
+  },
+  {
+    "id": 19,
+    "name": "Костя",
+    "category": "Пассажирский",
+    "coordinates": {
+      "latitude": -31.557646,
+      "longitude": -54.374950
+    },
+    "contactNumber": "9087654321"
+  },
+  {
+    "id": 20,
+    "name": "Эвита",
+    "category": "Спецтранспорт",
+    "coordinates": {
+      "latitude": -30.527646,
+      "longitude": -70.374950
     },
     "contactNumber": "9687654321"
   }
