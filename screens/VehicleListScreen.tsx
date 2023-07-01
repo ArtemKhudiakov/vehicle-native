@@ -1,31 +1,32 @@
 import {Button, FlatList, Pressable, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import vehicles from "../res/vehicles.json";
 import Vehicle from "../components/Vehicle";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import MapView, {Marker} from "react-native-maps";
 import {StatusBar} from "expo-status-bar";
 import {Car} from "../res/types";
+import {LanguageProviderContext} from "../components/LanguageProviderContext";
+import {VehicleTypesFilter} from "../res/vehicleTypesFilter";
+import {useNavigation} from "@react-navigation/native";
+import {StackNavigationProp} from "@react-navigation/stack";
+import {StackParams} from "../App";
 
-// const Cars: Car[] = vehicles;
-
-const buttonProps = {
-    title: "Настройки",
-    onPress: () => {
-        console.log("Нажали на кнопку");
-    }
-}
+type VehicleListScreenProp = StackNavigationProp<StackParams, 'VehicleListScreen'>;
 
 export default function VehicleListScreen(): JSX.Element {
-    const [showMap, setShowMap] = useState(true);
-    const [filteredVehicles, setFilteredVehicles] = useState(vehicles);
+    const [showMap, setShowMap] = useState(false);
+    const [filteredVehicles, setFilteredVehicles] = useState(vehicles as Car[]);
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-
+    const [selectedVehicle, setSelectedVehicle] = useState<Car | null>(null);
+    const {language} = useContext(LanguageProviderContext);
+    const navigation = useNavigation<VehicleListScreenProp>();
     const handleCategoryChange = (category: string) => {
         setSelectedCategory(category);
     };
 
+
     const handleResetCLick = () => {
-        setFilteredVehicles(vehicles)
+        setFilteredVehicles(vehicles as Car[])
         setSelectedCategory('')
     };
 
@@ -33,10 +34,7 @@ export default function VehicleListScreen(): JSX.Element {
         const filteredCars = selectedCategory
             ? vehicles.filter((car) => car.category === selectedCategory)
             : vehicles;
-
-        console.log(filteredCars);
-        setFilteredVehicles(filteredCars)
-        // Делайте что-то с отфильтрованными данными
+        setFilteredVehicles(filteredCars as Car[])
     };
 
     const getMarkerColor = (vehicle: Car): string => {
@@ -51,6 +49,10 @@ export default function VehicleListScreen(): JSX.Element {
                 return 'black';
         }
     }
+
+    const navigateToVehicleScreen = (vehicle: Car) => {
+        navigation.navigate('VehicleScreen', {vehicle});
+    };
 
     const RadioBtn: React.FC<{ selected: boolean; onPress: () => void, text: string }> = ({
                                                                                               selected,
@@ -69,11 +71,7 @@ export default function VehicleListScreen(): JSX.Element {
                                   padding: 8
                               }}>
                 <View
-                    style={{
-                        width: 0,
-                        height: 0,
-                        borderWidth: 0,
-                    }}
+                    style={styles.default_radio}
                 />
                 <Text style={styles.text}>{text}</Text>
             </TouchableOpacity>
@@ -83,45 +81,35 @@ export default function VehicleListScreen(): JSX.Element {
 
     return (
         <View style={styles.root}>
+
             <StatusBar style="auto"/>
-            <Text style={styles.title}>Список ТС</Text>
+
+            <Text style={styles.title}>{language === 'en' ? 'Choose category:' : 'Выбор категории:'}</Text>
             <Pressable style={styles.map} onPress={() =>
                 showMap ? setShowMap(false) :
                     setShowMap(true)
             }>
-                <Text style={styles.text_map}>{showMap ? 'Список' : 'Карта'}</Text>
+                <Text style={styles.text_map}>{showMap ?
+                    (language === 'en' ? 'List' : 'Список')
+                    : (language === 'en' ? 'Map' : 'Карта')}</Text>
             </Pressable>
 
             <View style={styles.wrapper}>
-                <View style={styles.radio}>
-                    <RadioBtn
-
-                        selected={selectedCategory === 'Грузовой'}
-                        onPress={() => handleCategoryChange('Грузовой')}
-                        text={'Грузовой'}
-                    />
-                </View>
-                <View style={styles.radio}>
-                    <RadioBtn
-                        selected={selectedCategory === 'Пассажирский'}
-                        onPress={() => handleCategoryChange('Пассажирский')}
-                        text={'Пассажирский'}
-                    />
-                </View>
-                <View style={styles.radio}>
-                    <RadioBtn
-                        selected={selectedCategory === 'Спецтранспорт'}
-                        onPress={() => handleCategoryChange('Спецтранспорт')}
-                        text={'Спецтранспорт'}
-                    />
-                </View>
-
-
+                {VehicleTypesFilter.map((category) => (
+                    <View style={styles.radio} key={category}>
+                        <RadioBtn
+                            selected={selectedCategory === category}
+                            onPress={() => handleCategoryChange(category)}
+                            text={category}
+                        />
+                    </View>
+                ))}
             </View>
 
+
             <View style={styles.categories_btn}>
-                <Button title="Применить" onPress={handleFilterButtonClick}/>
-                <Button title="Сбросить" onPress={handleResetCLick}/>
+                <Button title={language === 'en' ? 'Apply' : 'Применить'} onPress={handleFilterButtonClick}/>
+                <Button title={language === 'en' ? 'Reset' : 'Сбросить'} onPress={handleResetCLick}/>
             </View>
             {showMap ? (
                 <MapView style={{height: '100%', width: '100%'}}>
@@ -137,21 +125,30 @@ export default function VehicleListScreen(): JSX.Element {
                             pinColor={getMarkerColor(vehicle)}
                         />
                     ))}
-                    {/*<Button title={'Закрыть!'} onPress={() => setShowMap(false)}/>*/}
                 </MapView>
 
             ) : (
+                <View>
+                    {!selectedVehicle && (<FlatList
+                        data={filteredVehicles}
+                        renderItem={({item: vehicle}) =>
+                            <TouchableOpacity
+                                onPress={() => navigateToVehicleScreen(vehicle)}
+                            >
+                                <Vehicle key={vehicle.id} vehicle={vehicle}/>
+                            </TouchableOpacity>
+                        }
+                        keyExtractor={(vehicle) => vehicle.id.toString()}
 
-                <FlatList
-                    data={filteredVehicles}
-                    renderItem={({item: vehicle}) => <Vehicle key={vehicle.id} vehicle={vehicle}/>}
-                    keyExtractor={(vehicle) => vehicle.id.toString()}
-
-                />
+                    />)
+                    }
+                    {/*{selectedVehicle && (*/}
+                    {/*    <VehicleScreen vehicle={selectedVehicle}/>*/}
+                    {/*    // setSelectedVehicle(null)*/}
+                    {/*)}*/}
+                </View>
             )
             }
-
-
         </View>
     )
 }
@@ -162,11 +159,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFEADD',
     },
     title: {
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 5,
-        marginBottom: 5,
+        marginTop: 10
 
     },
     listContainer: {
@@ -176,11 +172,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
+    default_radio: {
+        width: 0,
+        height: 0,
+        borderWidth: 0,
+    },
     categories_btn: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginBottom: 0,
-
     },
     input: {
         height: 40,
