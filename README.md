@@ -46,9 +46,3 @@ It provides a convenient way for users to monitor the movement and driver inform
 - [ ] Refactor components
 - [ ] Refactor styles
 
-## Screenshots
-
-![photo_5260664270323043626_y.jpg](..%2F..%2FDownloads%2Fphoto_5260664270323043626_y.jpg)
-![photo_5260664270323043627_y.jpg](..%2F..%2FDownloads%2Fphoto_5260664270323043627_y.jpg)
-![photo_5260664270323043628_y.jpg](..%2F..%2FDownloads%2Fphoto_5260664270323043628_y.jpg)
-![photo_5260664270323043629_y.jpg](..%2F..%2FDownloads%2Fphoto_5260664270323043629_y.jpg)
