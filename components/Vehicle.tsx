@@ -1,5 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {Car} from "../res/types"
+import getLanguageText from "../res/commonFunctions";
+import {useContext} from "react";
+import {LanguageProviderContext} from "./LanguageProviderContext";
 
 export interface Props {
     vehicle: Car;
@@ -7,9 +10,10 @@ export interface Props {
 }
 
 export default function Vehicle({vehicle: {id, name, category}}: Props): JSX.Element {
+    const {language} = useContext(LanguageProviderContext);
     return (
         <View style={styles.vehicle} key={id}>
-            <Text style={styles.number}>{`ТС #${id}`} </Text>
+            <Text style={styles.number}>{`${getLanguageText('title', language)} #${id}`} </Text>
             <Text style={styles.name}>{` ${name}`} </Text>
             <Text style={styles.category}>{` ${category}`}</Text>
         </View>

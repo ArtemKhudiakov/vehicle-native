@@ -2,20 +2,21 @@ import {Button, StyleSheet, View} from 'react-native';
 import {Text} from "react-native-elements";
 import {useContext} from "react";
 import {LanguageProviderContext} from "../components/LanguageProviderContext";
+import getLanguageText from "../res/commonFunctions";
 
 
 export default function SettingScreen(): JSX.Element {
     const {language, setLanguage} = useContext(LanguageProviderContext);
 
-    const handleLanguageToggle = () => {
+    const handleLanguageToggle = (): void => {
         const newLanguage = language === 'en' ? 'ru' : 'en';
         setLanguage(newLanguage);
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.language}>{language === 'en' ? 'Language:' : 'Язык:'} {language}</Text>
-            <Button title={language === 'en' ? 'Toggle Language' : 'Переключить язык'} onPress={handleLanguageToggle}/>
+            <Text style={styles.language}>{getLanguageText('language', language)} {language}</Text>
+            <Button title={getLanguageText('toggleLanguage', language)} onPress={handleLanguageToggle}/>
         </View>
     );
 }
