@@ -4,12 +4,14 @@ import Vehicle from "../components/Vehicle";
 import React, {useContext, useState} from "react";
 import MapView, {Marker} from "react-native-maps";
 import {StatusBar} from "expo-status-bar";
-import {Car} from "../res/types";
+import {Car, CategoryType} from "../res/types";
 import {LanguageProviderContext} from "../components/LanguageProviderContext";
 import {VehicleTypesFilter} from "../res/vehicleTypesFilter";
 import {useNavigation} from "@react-navigation/native";
 import {StackNavigationProp} from "@react-navigation/stack";
 import {StackParams} from "../App";
+import getLanguageText, {getMarkerColor} from "../res/commonFunctions";
+import {translationMap} from "../res/constants";
 
 type VehicleListScreenProp = StackNavigationProp<StackParams, 'VehicleListScreen'>;
 
@@ -19,37 +21,28 @@ export default function VehicleListScreen(): JSX.Element {
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const {language} = useContext(LanguageProviderContext);
     const navigation = useNavigation<VehicleListScreenProp>();
-    const handleCategoryChange = (category: string) => {
+    const handleCategoryChange = (category: string): void => {
         setSelectedCategory(category);
     };
 
-    const handleResetCLick = () => {
+    const handleResetCLick = (): void => {
         setFilteredVehicles(vehicles as Car[])
         setSelectedCategory('')
     };
 
-    const handleFilterButtonClick = () => {
+    const handleFilterButtonClick = (): void => {
         const filteredCars = selectedCategory
             ? vehicles.filter((car) => car.category === selectedCategory)
             : vehicles;
         setFilteredVehicles(filteredCars as Car[])
     };
 
-    const getMarkerColor = (vehicle: Car): string => {
-        switch (vehicle.category) {
-            case 'Грузовой':
-                return 'red';
-            case 'Пассажирский':
-                return 'blue';
-            case 'Спецтранспорт':
-                return 'green';
-            default:
-                return 'black';
-        }
-    }
-
-    const navigateToVehicleScreen = (vehicle: Car) => {
+    const navigateToVehicleScreen = (vehicle: Car): void => {
         navigation.navigate('VehicleScreen', {vehicle});
+    };
+
+    const translateCategory = (category: CategoryType): string => {
+        return translationMap[category] || category;
     };
 
     const RadioBtn: React.FC<{ selected: boolean; onPress: () => void, text: string }> = ({
@@ -81,43 +74,43 @@ export default function VehicleListScreen(): JSX.Element {
 
             <StatusBar style="auto"/>
 
-            <Text style={styles.title}>{language === 'en' ? 'Choose category:' : 'Выбор категории:'}</Text>
+            <Text style={styles.title}>{getLanguageText('chooseCategory', language)}</Text>
             <Pressable style={styles.map} onPress={() =>
                 showMap ? setShowMap(false) :
                     setShowMap(true)
             }>
                 <Text style={styles.text_map}>{showMap ?
-                    (language === 'en' ? 'List' : 'Список')
-                    : (language === 'en' ? 'Map' : 'Карта')}</Text>
+                    (getLanguageText('list', language))
+                    : getLanguageText('map', language)}</Text>
             </Pressable>
 
             <View style={styles.wrapper}>
-                {VehicleTypesFilter.map((category) => (
+                {VehicleTypesFilter.map((category: CategoryType) => (
                     <View style={styles.radio} key={category}>
                         <RadioBtn
                             selected={selectedCategory === category}
                             onPress={() => handleCategoryChange(category)}
-                            text={category}
+                            text={language === 'ru' ? category : translateCategory(category)}
                         />
                     </View>
                 ))}
             </View>
 
             <View style={styles.categories_btn}>
-                <Button title={language === 'en' ? 'Apply' : 'Применить'} onPress={handleFilterButtonClick}/>
-                <Button title={language === 'en' ? 'Reset' : 'Сбросить'} onPress={handleResetCLick}/>
+                <Button title={getLanguageText('apply', language)} onPress={handleFilterButtonClick}/>
+                <Button title={getLanguageText('reset', language)} onPress={handleResetCLick}/>
             </View>
             {showMap ? (
-                <MapView style={{height: '100%', width: '100%'}}>
-                    {filteredVehicles.map((vehicle) => (
+                <MapView style={styles.mapview}>
+                    {filteredVehicles.map((vehicle: Car) => (
                         <Marker
                             key={vehicle.id}
                             coordinate={{
                                 latitude: vehicle.coordinates.latitude,
                                 longitude: vehicle.coordinates.longitude,
                             }}
-                            title={`ТС #${vehicle.id}`}
-                            description={`Имя водителя: ${vehicle.name}`}
+                            title={`${getLanguageText('pinTitle', language)} #${vehicle.id}`}
+                            description={`${getLanguageText('pinDescription', language)} ${vehicle.name}`}
                             pinColor={getMarkerColor(vehicle)}
                         />
                     ))}
@@ -168,6 +161,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         marginBottom: 0,
+    },
+    mapview: {
+        height: '100%',
+        width: '100%'
     },
     input: {
         height: 40,

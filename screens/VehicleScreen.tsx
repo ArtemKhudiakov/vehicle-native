@@ -3,14 +3,16 @@ import {Button, Linking, StyleSheet, Text, View} from 'react-native';
 import MapView, {Marker} from 'react-native-maps';
 import {RouteProp} from "@react-navigation/native";
 import {StackParams} from '../App';
-import {message} from '../res/message.js';
+import {message} from '../res/constants';
 import {LanguageProviderContext} from "../components/LanguageProviderContext";
+import getLanguageText, {getMarkerColor} from "../res/commonFunctions";
 
 type VehicleScreenRouteProp = RouteProp<StackParams, 'VehicleScreen'>;
 
 type VehicleScreenProps = {
     route: VehicleScreenRouteProp;
 };
+
 const VehicleScreen = ({route}: VehicleScreenProps) => {
     const {language} = useContext(LanguageProviderContext);
     const {vehicle} = route.params;
@@ -33,33 +35,34 @@ const VehicleScreen = ({route}: VehicleScreenProps) => {
                     longitudeDelta: 0.0421,
                 }}
             >
-                <Marker coordinate={vehicle.coordinates}/>
+                <Marker coordinate={vehicle.coordinates}
+                        pinColor={getMarkerColor(vehicle)}/>
             </MapView>
 
             <View style={styles.info_container}>
                 <Text style={styles.subtitle}>
-                    {language === 'en' ? 'Category:' : 'Категория ТС:'}
+                    {getLanguageText('category', language)}
                 </Text>
                 <Text style={styles.info}>{vehicle.category}</Text>
             </View>
 
             <View style={styles.info_container}>
                 <Text style={styles.subtitle}>
-                    {language === 'en' ? 'Driver name:' : 'Имя водителя:'}
+                    {getLanguageText('driverName', language)}
                 </Text>
                 <Text style={styles.info}>{vehicle.name}</Text>
             </View>
 
             <View style={styles.info_container}>
                 <Text style={styles.number}>
-                    {language === 'en' ? 'Driver contact number:' : 'Контактный номер водителя:'}
+                    {getLanguageText('contactNumber', language)}
                 </Text>
                 <Text style={styles.info}>{vehicle.contactNumber}</Text>
             </View>
 
             <View style={styles.contact}>
-                <Button color={'blue'} title={language === 'en' ? 'Call' : 'Позвонить'} onPress={handleCallDriver}/>
-                <Button color={'green'} title={language === 'en' ? 'Write' : 'Написать'} onPress={handleMessageDriver}/>
+                <Button color={'blue'} title={getLanguageText('call', language)} onPress={handleCallDriver}/>
+                <Button color={'green'} title={getLanguageText('write', language)} onPress={handleMessageDriver}/>
             </View>
         </View>
     );
